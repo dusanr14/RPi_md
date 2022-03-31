@@ -30,7 +30,25 @@ fprintf(log, "\n\t\t***Temperatura***\n
 Izmerena temperatura = %.3f \xC2\xB0 C\t C\n",
 temperatura());
 fclose(log);
-
+printf("\n\nPočetna Temp = %.3f \xC2\xB0 C", temperatura());
+while(1)
+{
+j++; //broj iteracija
+clock_gettime(CLOCK_REALTIME, &ts1);
+printf("\nMerenje br. %d.\tTemp = %.3f
+\xC2\xB0 C", j, temperatura());
+clock_gettime(CLOCK_REALTIME, &ts2);
+//trajanje pojedinacnog //merenja
+czas = (ts2.tv_nsec - ts1.tv_nsec)/1000000;
+if(czas<=0) czas=czas+999;
+/* Prethodni red koriguje povremenu gresku pri merenju
+kada se dobija rezultat koji je manji za 999ms u odnosu
+na stvarni */
+printf("\tTrajanje merenja: %ld ms.", czas);
+zapis(temperatura()); //upis u datoteku
+}
+return 0;
+}
 /*if(value > 25000)
 {
 	digitalWrite (LED, 1);
