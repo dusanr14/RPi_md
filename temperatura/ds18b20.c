@@ -61,6 +61,5 @@ else
 	digitalWrite (LED, 0);
 }
 */
-close(fd);
-return 0;
+
 }
