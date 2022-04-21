@@ -2,7 +2,6 @@
 // kompajlirati sa -lwiringPi -lwiringPiDev
 
 #include <stdio.h>
-#include <string.h>
 #include <errno.h>
 #include <wiringPi.h>
 #include <lcd.h>
@@ -21,7 +20,7 @@ const int D1 = 12;
 const int D2 = 13;
 const int D3 = 6;
 
-int main(){
+int main(int argc, char *argv[]){
 
 int lcd_h;
 
@@ -36,6 +35,8 @@ int lcd_h;
 	char buffer[100];
 	int i,j;
 	
+while(1)
+{
 	strcpy(dev_name, devname_head);
 	strcat(dev_name, argv[1]);
 	strcat(dev_name, devname_end);
@@ -53,22 +54,27 @@ int lcd_h;
 		perror("Greška pri čitanju!");
 		exit(1);
 	}
+	
+	tmp1=strchr(buffer,ch);
+	sscanf(tmp1, "t=%s", tmp2);
+	value = atoi(tmp2);
+	integer=value/1000;
+	decimal= value % 1000;
 
 
 	if (wiringPiSetup() < 0){
-	fprintf (stderr, "Greška pri inicijalizaciji:
-		%s\n", strerror (errno)) ;
+	fprintf (stderr, "Greška pri inicijalizaciji: %s\n", strerror (errno)) ;
 	return 1 ;
 	}
 
 	lcd_h = lcdInit(2, 16, 4, RS, EN, D0, D1, D2,
 		D3, D0, D1, D2, D3);
+	
 	lcdPosition(lcd_h, 0,0);
-	lcdPrintf(lcd_h,"Displej sa 16 ch");
-	lcdPosition(lcd_h, 0,1);
-	lcdPrintf(lcd_h, "u 2 reda");
+	lcdPrintf(lcd_h,"temp: %d.%d", integer, decimal);
 
 	delay(2000);
-
-	lcdClear(lcd_h);
+    close (fd);
+	//lcdClear(lcd_h);
+}
 }

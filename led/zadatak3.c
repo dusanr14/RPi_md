@@ -74,10 +74,10 @@ char level7[8] = { 0b11111,
 		   0b11111, 
 		   0b11111, 
 		   0b11111,
-	            0b11111, 
-	            0b11111, 
-	            0b11111, 
-	            0b11111};
+	       0b11111, 
+	       0b11111, 
+	       0b11111, 
+	       0b11111};
 
 #define COLUMNS 16
 #define LCD_RS 3
@@ -146,8 +146,7 @@ void memory(void)
 	}
 	else
 	{
-	printf("Otvaranje fajla \"/proc/meminfo\" nije
-	uspelo!\n");
+	printf("Otvaranje fajla \"/proc/meminfo\" nije uspelo!\n");
 	}
 }
 

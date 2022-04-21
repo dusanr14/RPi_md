@@ -14,6 +14,8 @@ int main(int argc, char **argv)
 {
 	struct lirc_config *config;
 	char *code;
+	char delim[] = " ";
+	char *ptr;
 
 	//startuj lirc
 	if(lirc_init("lirc",1)==-1)
@@ -35,20 +37,19 @@ int main(int argc, char **argv)
 			if(code==NULL) continue; {
 
 				bcm2835_delay(400);
-				if (strstr(code,"KEY_0")){
-					printf("KEY0\n");
-
-					// iskljuci
-					bcm2835_gpio_write(PIN, LOW);
-					bcm2835_delay(500);
+				printf("0x");
+				for(int i = 12; i <= 15; i++)
+				{
+				printf("%c",code[i]);
 				}
-				else if (strstr(code,"KEY_1")){
-					printf("KEY1\n");
-
-					// ukljuci
-					bcm2835_gpio_write(PIN, HIGH);
-					bcm2835_delay(500);
+				
+				for(int i = 19; i <= 24; i++)
+				{
+				printf("%c",code[i]);
 				}
+				
+				printf("\n");
+	
 			}
 			free(code);
 		}
@@ -57,3 +58,4 @@ int main(int argc, char **argv)
 	lirc_deinit();
  	bcm2835_close();
  	return 0;
+}

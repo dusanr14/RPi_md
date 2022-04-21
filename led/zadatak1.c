@@ -13,7 +13,7 @@ double temperatura(void) //očitavanje temperature
 {
 	FILE *ft;
 	char tekst[100];
-	ft=fopen("/sys/bus/w1/devices/28-00000???????/w1_slave","r");
+	ft=fopen("/sys/bus/w1/devices/28-00000a41dec3/w1_slave","r");
 	if(ft==NULL) return 0;
 	int i=0;
 	for(i=0;i<22;i++) //samo temperatura
@@ -52,8 +52,7 @@ int lcd_h;
 	printf("\n\nPočetna Temp = %.3f \xC2\xB0 C", temperatura());
 	
 	if (wiringPiSetup() < 0){
-	fprintf (stderr, "Greška pri inicijalizaciji:
-		%s\n", strerror (errno)) ;
+	fprintf (stderr, "Greška pri inicijalizaciji: %s\n", strerror (errno)) ;
 	return 1 ;
 	}
 	
@@ -66,7 +65,8 @@ int lcd_h;
 	clock_gettime(CLOCK_REALTIME, &ts1);
 	//printf("\nMerenje br. %d.\tTemp = %.3f\xC2\xB0 C", j, temperatura());
 	lcdPosition(lcd_h, 0,0);
-	lcdPrintf(lcd_h,temperatura());
+	
+	lcdPrintf(lcd_h,"temp: %s", temperatura());
 	delay(2000);
 	lcdClear(lcd_h);
 	clock_gettime(CLOCK_REALTIME, &ts2);
@@ -77,7 +77,7 @@ int lcd_h;
 	kada se dobija rezultat koji je manji za 999ms u odnosu
 	na stvarni */
 	printf("\tTrajanje merenja: %ld ms.", czas);
-	zapis(temperatura()); //upis u datoteku
+//	zapis(temperatura()); //upis u datoteku
 }	
 	
 
