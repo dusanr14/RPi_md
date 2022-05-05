@@ -1,4 +1,4 @@
-/ primer rada sa PCF8563 koji ispisuje tekuce vreme
+//primer rada sa PCF8563 koji ispisuje tekuce vreme
 // u terminalu svakih 5 sekundi
 
 #include <bcm2835.h>
@@ -11,12 +11,14 @@
 #define SEK 0x02
 #define MIN 0x03
 #define SAT 0x04
-
+#define DAN 0X05
+#define MESEC 0X07
+#define GODINA 0X08
 	unsigned char WriteBuf[2];
 	unsigned char ReadBuf;
-	unsigned char g8563_Store[3];
-				// sec,min,sat
-	unsigned char init8563_Store[3]={0x00,0x59,0x08};
+	unsigned char g8563_Store[6];
+				// sec,min,sat, DAN, MESEC, GODINA
+	unsigned char init8563_Store[6]={0x00,0x59,0x08,0x01,0x01,0X02};
 	
 void P8563_settime()
 {
@@ -31,13 +33,25 @@ void P8563_settime()
 	WriteBuf[0] = SAT;
 	WriteBuf[1] = g8563_Store[2];
 	bcm2835_i2c_write(WriteBuf,2);
+	
+	WriteBuf[0] = DAN;
+	WriteBuf[1] = g8563_Store[3];
+	bcm2835_i2c_write(WriteBuf,2);
+	
+	WriteBuf[0] = MESEC;
+	WriteBuf[1] = g8563_Store[4];
+	bcm2835_i2c_write(WriteBuf,2);
+	
+	WriteBuf[0] = GODINA;
+	WriteBuf[1] = g8563_Store[5];
+	bcm2835_i2c_write(WriteBuf,2);
 }
 
 void P8563_init()
 {
 	unsigned char i;
 
-	for(i=0;i<=3;i++)
+	for(i=0;i<=5;i++)
 		g8563_Store[i]=init8563_Store[i];
 
 	P8563_settime();
@@ -57,9 +71,16 @@ void P8563_Readtime()
 	g8563_Store[0] = time[0] & 0x7f;
 	g8563_Store[1] = time[1] & 0x7f;
 	g8563_Store[2] = time[2] & 0x3f;
+	g8563_Store[3] = time[3] & 0x3f; // DAN
+	g8563_Store[4] = time[5] & 0x9f; // MESEC
+	g8563_Store[5] = time[6] & 0xff; // GODINA
+	
 	g8563_Store[0] = changeHexToInt(g8563_Store[0]);
 	g8563_Store[1] = changeHexToInt(g8563_Store[1]);
 	g8563_Store[2] = changeHexToInt(g8563_Store[2]);
+	g8563_Store[3] = changeHexToInt(g8563_Store[3]);
+	g8563_Store[4] = changeHexToInt(g8563_Store[4]);
+	g8563_Store[5] = changeHexToInt(g8563_Store[5]);
 }
 
 int main(int argc, char **argv)
@@ -79,9 +100,7 @@ int main(int argc, char **argv)
 	{
 		P8563_Readtime();
 
-		printf("Sati:%d Minuti:%d Sekunde:%d\n",
-		g8563_Store[2], g8563_Store[1],
-		g8563_Store[0]);
+		printf("Godina:%d Mesec:%d Dan:%d Sati: %d  Minuti:%d Sekunde:%d\n",g8563_Store[5],g8563_Store[4],g8563_Store[3],g8563_Store[2], g8563_Store[1],g8563_Store[0]);
 
 	bcm2835_delay(5000);
 	}
