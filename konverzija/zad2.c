@@ -2,7 +2,7 @@
 * očitavati trimer potenciometar koji je na AIN3
 * upisati tu vrednost u DAC,
 * očitati DAC preko AIN2
-* DAC izlaz je validan do oko ~220
+* DAC izlaz je validan do oko ~220 
 */
 
 #include <wiringPiI2C.h>
