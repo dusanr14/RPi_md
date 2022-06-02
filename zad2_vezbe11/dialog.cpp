@@ -81,9 +81,24 @@ Dialog::Dialog(QWidget *parent)
     , ui(new Ui::Dialog)
 {
     ui->setupUi(this);
-    lcd_h = lcdInit(2, 16, 4, RS, EN, D0, D1, D2, D3, D0, D1, D2, D3);
+   lcd_h = lcdInit(2, 16, 4, RS, EN, D0, D1, D2, D3, D0, D1, D2, D3);
 
 }
+
+/*void Dialog:: showTime()
+{
+   QTime time = QTime::currentTime();
+   QString time_text= time.toString("hh : mm : ss");
+   if ((time.second()%2) == 0)
+   {
+       time_text[2]= ' ';
+       time_text[5]= ' ';
+   }
+   ui-> Digital_clock->setText(time_text);
+
+
+}*/
+
 
 Dialog::~Dialog()
 {

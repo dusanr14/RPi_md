@@ -10,7 +10,8 @@
 #include <wiringPiI2C.h>///
 #include <stdlib.h>///
 #include <unistd.h>
-
+#include <QTimer>
+#include <QDateTime>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Dialog; }
@@ -26,6 +27,7 @@ public:
 
 private slots:
     void on_pushButton_clicked();
+    //void showTime();
 
 private:
     Ui::Dialog *ui;

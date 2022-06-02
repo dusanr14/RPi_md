@@ -25,9 +25,9 @@ class Ui_Dialog
 public:
     QLabel *label_2;
     QLineEdit *lineEdit;
-    QLabel *label_3;
+    QLabel *Digital_clock;
     QPushButton *pushButton;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
     QLabel *label;
 
@@ -42,19 +42,19 @@ public:
         lineEdit = new QLineEdit(Dialog);
         lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
         lineEdit->setGeometry(QRect(360, 160, 161, 51));
-        label_3 = new QLabel(Dialog);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
-        label_3->setGeometry(QRect(390, 300, 121, 31));
+        Digital_clock = new QLabel(Dialog);
+        Digital_clock->setObjectName(QString::fromUtf8("Digital_clock"));
+        Digital_clock->setGeometry(QRect(390, 300, 121, 31));
         pushButton = new QPushButton(Dialog);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
         pushButton->setGeometry(QRect(360, 230, 161, 41));
-        widget = new QWidget(Dialog);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(200, 160, 117, 52));
-        verticalLayout = new QVBoxLayout(widget);
+        layoutWidget = new QWidget(Dialog);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(200, 160, 117, 52));
+        verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        label = new QLabel(widget);
+        label = new QLabel(layoutWidget);
         label->setObjectName(QString::fromUtf8("label"));
 
         verticalLayout->addWidget(label);
@@ -69,7 +69,7 @@ public:
     {
         Dialog->setWindowTitle(QCoreApplication::translate("Dialog", "Dialog", nullptr));
         label_2->setText(QCoreApplication::translate("Dialog", "Trenutno vreme:", nullptr));
-        label_3->setText(QCoreApplication::translate("Dialog", "-----", nullptr));
+        Digital_clock->setText(QString());
         pushButton->setText(QCoreApplication::translate("Dialog", "Potvrdi", nullptr));
         label->setText(QCoreApplication::translate("Dialog", "Podesi vreme:", nullptr));
     } // retranslateUi
